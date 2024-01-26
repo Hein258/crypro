@@ -87,7 +87,7 @@ function App() {
         <w3m-network-button/>
       </div>
     
-    <div className="mb-4 bg-slate-500">
+    <div className="mb-4 bg-slate-800">
       <ChainSelector onSelect={(cr) => setChain(cr)}/>
     </div>
       {/* <div className="flex gap-3 flex-row flex-wrap">
