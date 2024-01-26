@@ -4,8 +4,8 @@ import './App.css'
 // import { useWeb3Modal } from "@web3modal/wagmi1/react";
 // import { useAccount } from "wagmi";
 import { TokenType } from "./types/Tokens";
-import { chainsList } from "./data/chains";
-import Button from "./UI/Button";
+// import { chainsList } from "./data/chains";
+// import Button from "./UI/Button";
 import ChainSelector from "./components/ChainSelector";
 
 function App() {

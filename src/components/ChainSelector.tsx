@@ -12,7 +12,7 @@ function ChainSelector(props: Props) {
       id="fromChain"
       onChange={(e) => props.onSelect(e?.value)}
       styles={{
-        control: (baseStyles, state) => ({
+        control: (baseStyles) => ({
           ...baseStyles,
           //   borderColor: state.isFocused ? "grey" : "red",
           border: "unset",
