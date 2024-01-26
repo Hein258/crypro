@@ -13,6 +13,7 @@
     "@web3modal/wagmi1": "^4.0.0-544a28f1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-select": "^5.8.0",
     "use-debounce": "^10.0.0",
     "viem": "^1.21.4",
     "wagmi": "^1.4.13"

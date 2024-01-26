@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import './App.css'
 // import { useWeb3Modal } from "@web3modal/wagmi1/react";
@@ -6,10 +6,13 @@ import './App.css'
 import { TokenType } from "./types/Tokens";
 import { chainsList } from "./data/chains";
 import Button from "./UI/Button";
+import ChainSelector from "./components/ChainSelector";
 
 function App() {
 
   const [tokens, setTokens] = useState<Array<TokenType>>([]);
+  const [getChain, setChain] = useState<string>();
+  const [isLoading, setLoading] = useState<boolean>();
   // const [getGas, setGas] = useState<string>();
   // const [getChain, setChain] = useState<string>('');
   
@@ -24,19 +27,30 @@ function App() {
 
 // },[getChain])
 
+  useEffect(()=>{
+    console.log(getChain)
+    if(getChain != '' && getChain != undefined){
+      getToken(getChain)
+    }
+
+  },[getChain])
+
   const getToken = async (chain: string) => {
-    console.log('asd');
+  
     try {
+      setLoading(true);
       var req = await fetch(`https://open-api.openocean.finance/v3/${chain}/tokenList`);
       var response = await req.json();
       setTokens(response.data);
       // console.log(response);
       // setChain(chain);
-      return;
+      // return;
       
     } catch (error) {
       console.log(error);
     }
+
+    setLoading(false);
   };
   
   // const getGasPrice = async (token: string) => {
@@ -73,19 +87,24 @@ function App() {
         <w3m-network-button/>
       </div>
     
-      <div className="flex gap-3 flex-row flex-wrap">
+    <div className="mb-4 bg-slate-500">
+      <ChainSelector onSelect={(cr) => setChain(cr)}/>
+    </div>
+      {/* <div className="flex gap-3 flex-row flex-wrap">
         {chainsList.map((chain) => {
           return (
-            <Button key={chain.key} clasName="flex-shrink flex-1 flex items-center gap-2 flex-col" onClick={() => getToken(chain.key)}>
+            <Button key={chain.value} clasName="flex-shrink flex-1 flex items-center gap-2 flex-col" onClick={() => getToken(chain.value)}>
               <span>
                 <img style={{width: '50px', aspectRatio: '1'}} src={chain.logo}/>
                 </span>
-              {chain.name}
+              {chain.label}
             </Button>
             );
         })}
-      </div>
-      
+      </div> */}
+
+      {isLoading ? <h2 className="text-3xl text-white">Loading...</h2>  : 
+
       <div
        style={{
         display: "grid",
@@ -110,6 +129,7 @@ function App() {
           </div>);
         })}
       </div>
+      }
     </>
   );
 }
