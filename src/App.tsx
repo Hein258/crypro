@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import './App.css'
-import { useWeb3Modal } from "@web3modal/wagmi1/react";
-import { useAccount } from "wagmi";
+// import { useWeb3Modal } from "@web3modal/wagmi1/react";
+// import { useAccount } from "wagmi";
 import { TokenType } from "./types/Tokens";
 import { chainsList } from "./data/chains";
 import Button from "./UI/Button";
@@ -10,11 +10,11 @@ import Button from "./UI/Button";
 function App() {
 
   const [tokens, setTokens] = useState<Array<TokenType>>([]);
-  const [getGas, setGas] = useState<string>();
-  const [getChain, setChain] = useState<string>('');
+  // const [getGas, setGas] = useState<string>();
+  // const [getChain, setChain] = useState<string>('');
   
-  const { open } = useWeb3Modal();
-  const account = useAccount();
+  // const { open } = useWeb3Modal();
+  // const account = useAccount();
 
 // useEffect(()=>{
 //   if(getChain != ''){
@@ -31,7 +31,7 @@ function App() {
       var response = await req.json();
       setTokens(response.data);
       // console.log(response);
-      setChain(chain);
+      // setChain(chain);
       return;
       
     } catch (error) {
@@ -39,26 +39,26 @@ function App() {
     }
   };
   
-  const getGasPrice = async (token: string) => {
-    try {
+  // const getGasPrice = async (token: string) => {
+  //   try {
 
-      var req = await fetch(`https://open-api.openocean.finance/v3/${token}/gasPrice`);
-      var response = await req.json();
+  //     var req = await fetch(`https://open-api.openocean.finance/v3/${token}/gasPrice`);
+  //     var response = await req.json();
 
-      if(response.without_decimals.isInteger){
-        setGas(response.without_decimals);
-      }
-      else{
-        setGas(response.without_decimals.standard);
-      }
-      // setGas(response.data.standard);
+  //     if(response.without_decimals.isInteger){
+  //       setGas(response.without_decimals);
+  //     }
+  //     else{
+  //       setGas(response.without_decimals.standard);
+  //     }
+  //     // setGas(response.data.standard);
 
-      return;
+  //     return;
       
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     <>
