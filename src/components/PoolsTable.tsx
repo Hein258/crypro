@@ -1,10 +1,7 @@
 import {
   DataGrid,
   GridRowsProp,
-  GridColDef,
-  useGridApiContext,
-  useGridSelector,
-  gridPageSelector,
+  GridColDef
 } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import { getPools } from "../api/chainData";
@@ -73,12 +70,12 @@ const PoolsTable = ({ network }: { network: string }) => {
 
   useEffect(() => {
 
-    // if(urlPageNumber != null){
-    //   setPaginationModel({
-    //     pageSize: 20,
-    //     page: parseInt(urlPageNumber),
-    //   });
-    // }
+    if(urlPageNumber != null && paginationModel.page == 0 && parseInt(urlPageNumber) != 1){
+      setPaginationModel({
+        pageSize: 20,
+        page: parseInt(urlPageNumber),
+      });
+    }
 
     const fetchData = async () => {
 
@@ -131,7 +128,7 @@ const PoolsTable = ({ network }: { network: string }) => {
 
         localeText={{
           MuiTablePagination: {
-            labelDisplayedRows: ({ from, to, count }) => { return (`${from} - ${to}`)},
+            labelDisplayedRows: ({ from, to }) => { return (`${from} - ${to}`)},
             sx: {
               color: "#FFF",
             },
@@ -149,30 +146,30 @@ const PoolsTable = ({ network }: { network: string }) => {
   );
 }
 
-const PaginationBar = () => {
+// const PaginationBar = () => {
 
-  const apiRef = useGridApiContext();
-  const page = useGridSelector(apiRef, gridPageSelector);
+//   const apiRef = useGridApiContext();
+//   const page = useGridSelector(apiRef, gridPageSelector);
 
-  return (
-    <div className="flex items-center justify-between px-4 py-3 sm:px-6">
-      <div className="flex flex-1 justify-between gap-2">
-        <button
-          onClick={() => apiRef.current.setPage(page - 1)}
-          className="  rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-700"
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => apiRef.current.setPage(page + 1)}
-          className="  rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-700"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="flex items-center justify-between px-4 py-3 sm:px-6">
+//       <div className="flex flex-1 justify-between gap-2">
+//         <button
+//           onClick={() => apiRef.current.setPage(page - 1)}
+//           className="  rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-700"
+//         >
+//           Previous
+//         </button>
+//         <button
+//           onClick={() => apiRef.current.setPage(page + 1)}
+//           className="  rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-gray-700"
+//         >
+//           Next
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
 
 export default PoolsTable;

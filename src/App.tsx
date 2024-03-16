@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // import { useSwitchNetwork, useNetwork } from 'wagmi';
 import { useNetwork } from 'wagmi';
 // import { useWeb3ModalEvents } from "@web3modal/wagmi1/react";
@@ -8,7 +8,7 @@ import { ModalController } from "@web3modal/core";
 import './App.css'
 // import { useWeb3Modal } from "@web3modal/wagmi1/react";
 // import { useAccount } from "wagmi";
-import { TokenType } from "./types/Tokens";
+// import { TokenType } from "./types/Tokens";
 // import { chainsList } from "./data/chains";
 // import Button from "./UI/Button";
 import ChainSelector from "./components/ChainSelector";
@@ -21,9 +21,9 @@ function App() {
   const { chain } = useNetwork()
   const activeChain = chain?.name;
 
-  const [tokens, setTokens] = useState<Array<TokenType>>([]);
+  // const [tokens, setTokens] = useState<Array<TokenType>>([]);
   const [getChain, setChain] = useState<string>();
-  const [isLoading, setLoading] = useState<boolean>();
+  // const [isLoading, setLoading] = useState<boolean>();
   // const [getGas, setGas] = useState<string>();
   // const [getChain, setChain] = useState<string>('');
   
