@@ -6,6 +6,7 @@ import { createWeb3Modal } from "@web3modal/wagmi1/react";
 import { WagmiConfig } from "wagmi";
 import { projectId, wagmiConfig, chains } from "./config.ts";
 import './index.css'
+import { BrowserRouter } from "react-router-dom";
 
 // 3. Create modal
 createWeb3Modal({ wagmiConfig, projectId, chains, themeVariables: {
@@ -18,7 +19,9 @@ createWeb3Modal({ wagmiConfig, projectId, chains, themeVariables: {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
+    <BrowserRouter>
       <App />
+      </BrowserRouter>
     </WagmiConfig>
   </React.StrictMode>
 );

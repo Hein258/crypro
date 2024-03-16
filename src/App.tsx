@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+// import { useSwitchNetwork, useNetwork } from 'wagmi';
+import { useNetwork } from 'wagmi';
+// import { useWeb3ModalEvents } from "@web3modal/wagmi1/react";
+// import { NetworkController } from "@web3modal/core";
+import { ModalController } from "@web3modal/core";
 
 import './App.css'
 // import { useWeb3Modal } from "@web3modal/wagmi1/react";
@@ -7,8 +12,14 @@ import { TokenType } from "./types/Tokens";
 // import { chainsList } from "./data/chains";
 // import Button from "./UI/Button";
 import ChainSelector from "./components/ChainSelector";
+import PoolsTable from "./components/PoolsTable";
+// import { chains } from "./config";
 
 function App() {
+
+  // const { switchNetwork } = useSwitchNetwork();
+  const { chain } = useNetwork()
+  const activeChain = chain?.name;
 
   const [tokens, setTokens] = useState<Array<TokenType>>([]);
   const [getChain, setChain] = useState<string>();
@@ -17,6 +28,7 @@ function App() {
   // const [getChain, setChain] = useState<string>('');
   
   // const { open } = useWeb3Modal();
+  // const {data} = useWeb3ModalEvents();
   // const account = useAccount();
 
 // useEffect(()=>{
@@ -27,31 +39,47 @@ function App() {
 
 // },[getChain])
 
-  useEffect(()=>{
-    console.log(getChain)
-    if(getChain != '' && getChain != undefined){
-      getToken(getChain)
-    }
+  // useEffect(()=>{
+  //   // console.log(getChain)
 
-  },[getChain])
+  //   if(getChain != '' && getChain != undefined){
+  //     getToken(getChain)
+  //   }
 
-  const getToken = async (chain: string) => {
+  // },[getChain])
+
+  const setModal = () => {
+    ModalController.open({view: "ConnectingSiwe"});
+    // NetworkController.switchActiveNetwork('ethereum');
+  }
+
+  // const getToken = async (chain: string) => {
   
-    try {
-      setLoading(true);
-      var req = await fetch(`https://open-api.openocean.finance/v3/${chain}/tokenList`);
-      var response = await req.json();
-      setTokens(response.data);
-      // console.log(response);
-      // setChain(chain);
-      // return;
+  //   try {
+  //     setLoading(true);
+  //     const req = await fetch(`https://open-api.openocean.finance/v3/${chain}/tokenList`);
+  //     const response = await req.json();
+  //     setTokens(response.data);
+  //     // console.log(response);
+  //     // setChain(chain);s
+  //     // return;
       
-    } catch (error) {
-      console.log(error);
-    }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
-    setLoading(false);
-  };
+  //   setLoading(false);
+  // };
+
+  // const handleNetworkSwitch = async () => {
+  //   if(switchNetwork){
+  //     switchNetwork(1); // Arbitrum network id
+  //     const result = window.confirm(`Switch to Arbitrum?`);
+  //     if (result) {
+  //       await switchNetwork(42161);
+  //     }
+  //   }
+  // }
   
   // const getGasPrice = async (token: string) => {
   //   try {
@@ -74,7 +102,7 @@ function App() {
   //   }
   // }
 
-  return (
+        return (
     <>
       <div
         style={{
@@ -83,13 +111,17 @@ function App() {
           padding: 12,
         }}
       >
+        {activeChain && <div>Connected to {activeChain}</div>}
+        <button className="text-white" onClick={setModal}>
+          Switch to Arbitrum
+        </button>
         <w3m-button />
-        <w3m-network-button/>
+        <w3m-network-button />
       </div>
-    
-    <div className="mb-4 bg-slate-800">
-      <ChainSelector onSelect={(cr) => setChain(cr)}/>
-    </div>
+
+      <div className="mb-4 bg-slate-800">
+        <ChainSelector onSelect={(cr) => setChain(cr)} />
+      </div>
       {/* <div className="flex gap-3 flex-row flex-wrap">
         {chainsList.map((chain) => {
           return (
@@ -103,33 +135,7 @@ function App() {
         })}
       </div> */}
 
-      {isLoading ? <h2 className="text-3xl text-white">Loading...</h2>  : 
-
-      <div
-       style={{
-        display: "grid",
-        gap: 5,
-        gridTemplateColumns: '1fr 1fr 1fr 1fr'        
-       }}
-      >
-
-        {/* <h2>GAS PRICE {getGas}</h2> */}
-
-        {tokens.map((token) => {
-          
-          return (
-          <div key={token.id}>
-            <button className="grid" style={{textAlign: 'left', background: 'gray', color: 'white', gap: 10, flex: 1, width: '100%'}} >
-              <span><img style={{width: '50px', aspectRatio: '1'}} src={token.icon}/></span>
-              <span>
-                {token.name}<br/>
-                <small>USD: {token.usd}</small>
-                </span>
-              </button>
-          </div>);
-        })}
-      </div>
-      }
+      {getChain && <PoolsTable network={getChain} />}
     </>
   );
 }

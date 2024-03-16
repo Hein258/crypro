@@ -32,3 +32,25 @@
 //     console.log(error);
 //   }
 // };
+
+export const getPools = async (network: string, page: number = 1) => {
+  try {
+
+    // if(page < 1){
+    //     page = 1;
+    // }
+
+    page = page+1;
+    
+    var req = await fetch(
+    //   `https://api.geckoterminal.com/api/v2/search/pools?query=${network}&page=1`
+    `https://api.geckoterminal.com/api/v2/search/pools?query=${network}&include=dex,dex.network,dex.network.network_metric,tokens&page=${page}`
+    );
+    var response = await req.json();
+
+    return response.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+};

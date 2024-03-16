@@ -10,13 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.13",
+    "@mui/x-data-grid": "^6.19.6",
+    "@web3-react/core": "^8.2.3",
     "@web3modal/wagmi1": "^4.0.0-544a28f1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router": "^6.22.3",
+    "react-router-dom": "^6.22.3",
     "react-select": "^5.8.0",
     "use-debounce": "^10.0.0",
     "viem": "^1.21.4",
-    "wagmi": "^1.4.13"
+    "wagmi": "^1.4.13",
+    "web3modal": "^1.9.12"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
